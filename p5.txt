@@ -94,7 +94,7 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
  ** ¿Qué es lo que contiene el cuerpo de la trama? ¿En qué formato/protocolo está?
     SDP
  ** ¿Tiene éxito el primer intento? ¿Cómo lo sabes?
-    No tiene exito el primer INVITE no recibe un OK
+    No tiene exito el primer INVITE porque no recibe un 200 OK
  ** ¿En qué se diferencia el segundo INVITE más abajo del primero? ¿A qué crees que se debe esto?
     Ocurre lo mismo que en el REGISTER, en el primero INVITE no hay la cabecera de autorizacion.
 
@@ -111,9 +111,9 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
  ** ¿Se utilizan bits de padding?
     Solo aparece la cabecera padding en los mensajes RTP con la informacion de False.
  ** ¿Cuál es la periodicidad de los paquetes que se envían?
-    Los mensajes RTP se encian aproximadamente cada 160 segundos.
+    Los mensajes RTP se encian aproximadamente cada 0.160 segundos.
  ** ¿Cuántos bits/segundo estamos enviando?
-    214 bit/160 segundos = 1.3375 bits/segundo
+    -----------------------
 
 
 
@@ -121,37 +121,55 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
 
 12. Vamos a ver más a fondo el intercambio RTP. En Telephony hay una opción RTP. Empecemos mirando los flujos RTP.
  ** ¿Cuántos flujos hay? ¿por qué?
+    Hay Ethernet, IP, UDP y TCP, porque son los tipo--------------------------------------------------------------
  ** ¿Cuántos paquetes se pierden?
+    Se pienden 0% de los paquetes
  ** ¿Cuál es el valor máximo del delta? ¿Y qué es lo que significa el valor de delta?
+    Max delta = 1290,44 ms at packet no. 297
+    Delta es la diferencia entre la llegada de un paquete contra la llegada del paquete anterior.
  ** ¿Cuáles son los valores de jitter (medio y máximo)? ¿Qué quiere decir eso? ¿Estamos ante una conversación de calidad?
-
+    Max jitter = 119,64 ms. Mean jitter = 42,50 ms.
+    Variacion de los tiempos de llegada de los paquetes, causada por congestion, sincronizacion o por las diferentes rutas seguidas por los paquetes para alcanzar el destino. Teniendo en cuenta la perdida de mensajes, latencia y jitter estamos ante una conversacion de muy buena calidad.
 
 13. Elige un paquete RTP de audio. Analiza el flujo de audio en Telephony -> RTP -> Stream Analysis.
  ** ¿Cuánto valen el delta y el jitter para el primer paquete que ha llegado?
+    Ambos valores valen 0
  ** ¿Podemos saber si éste es el primer paquete que nos han enviado?
+    Si porque estamos analizando solo los paquetes RTP
  ** Los valores de jitter son menores de 10ms hasta un paquete dado. ¿Cuál?
+    Es menor hasta el paquete 117
  ** ¿A qué se debe el cambio tan brusco del jitter?
+    Porque los paquetes habra ido por otro camino hasta el destino--------------------------------------------------
  ** ¿Es comparable este cambio con el tiempo desde la recepción del paquete anterior? ¿Por qué?
+    No, la relacion de la llegada del paquete con el anterior es la delta, no el jitter.
  ** ¿Cuál es la dependencia entre el tiempo transcurrido desde el paquete anterior y el valor de jitter?
+    El valor de delta
 
 
 14. En Telephony selecciona el menú VoIP calls. Verás que se lista la llamada de voz IP capturada en una ventana emergente. Selecciona esa llamada y pulsa el botón Graph.
  ** ¿Cuánto dura la conversación?
+    24.803 segundos
  ** ¿Cuáles son sus SSRC? ¿Por qué hay varios SSRCs? ¿Hay CSRCs?
-
+    Sus SSRC aparecen en dos mensajes RTP 196 y 661 (videos)-------------------------------porq----------------------------
+    No hay CSRCs
 
 15. Identifica la trama donde se finaliza la conversación.
  ** ¿Qué método SIP se utiliza?
+     BYE
  ** ¿En qué trama(s)?
+    924, 925, 927 y 933 
  ** ¿Por qué crees que se envía varias veces?
+    Porque no recibe el 200 OK y reenvia periodicamente
 
 
 16. Finalmente, se cierra la aplicación de VozIP.
  ** ¿Por qué aparece una instrucción SIP del tipo REGISTER?
+    Para borrarle de la lista del servidor.
  ** ¿En qué trama sucede esto?
+    950 y 952
  ** ¿En qué se diferencia con la instrucción que se utilizó con anterioridad (al principio de la sesión)?
-
-
+    En el caso de los ultimos REGISTER su Expires es 0, por lo que quiere que le borre de la lista del servidor antes de que pase la hora por la que se registro.
+------------------------------------------------falta commit-------------------------------------------------------------------
 
 [Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
 
