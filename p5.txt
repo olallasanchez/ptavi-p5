@@ -38,15 +38,22 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
 
 5. Analiza las primeras cuatro tramas de la captura nada más arrancar Ekiga.
  ** ¿Qué servicio es el utilizado en estas tramas?
+    Utiliza el servicio DNS para conocer la IP
  ** ¿Cuál es la dirección IP del servidor de nombres del ordenador que ha lanzado Ekiga?
+    80.58.61.50
  ** ¿Qué dirección IP (de ekiga.net) devuelve el servicio de nombres?
+    86.64.162.35
  ** ¿Por qué se pide también para 35.162.64.86.in-addr.arpa?
+    Pregunta por el IP inversa que devuelve el servidor para comprobar de l aidentidad del cliente
 
 
 6. A continuación, hay más de una docena de tramas TCP/HTTP.
  ** ¿Podrías decir la URL que se está pidiendo?
+    http://ekiga.net/ip/
  ** ¿Qué user agent (UA) la está pidiendo?
+    Lo solicita el cliente: 192.168.1.34
  ** ¿Qué devuelve el servidor?
+    
  ** Si lanzamos el navegador web, por ejemplo, Mozilla Firefox, y vamos a la misma URL, ¿qué recibimos? ¿Qué es, entonces, lo que está respondiendo el servidor?
 
 
