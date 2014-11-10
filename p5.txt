@@ -107,9 +107,9 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
  ** ¿Se utilizan bits de padding?
     Aparece la cabecera padding en los mensajes RTP con la informacion de False.
  ** ¿Cuál es la periodicidad de los paquetes que se envían?
-    Los mensajes RTP se encian aproximadamente cada 0.160 segundos.
+    20 ms
  ** ¿Cuántos bits/segundo estamos enviando?
-    (214 bytes * 8) bits/0.160 segundos = 10700 bits/segundo
+    (214 bytes * 8) bits/20 milisegundos = 85600 bits/segundo
 
 
 
@@ -179,21 +179,21 @@ Captura una sesión SIP de una conversación con el número SIP sip:9999@qxip.ne
 
 17. Observa las diferencias en el inicio de la conversación entre el entorno del laboratorio y el del ejercicio anterior:
  ** ¿Es necesario el uso de DNS y STUN? ¿Por qué?
-    No, porque no nos encontramos detras de un NAT y solo tenemos IP publica
+    Si utiliza DNS pero no STUM ya que no estamos detras de ningun router NAT
  ** ¿Son diferentes el registro y la descripción de la sesión?
-    
+    Si son iguales
 
 
 18. Identifica las diferencias existentes entre esta conversación y la conversación anterior:
  ** ¿Cuántos flujos tenemos?
     Tenemos dos flujos, el de ida y el de vuelta
  ** ¿Cuál es su periodicidad?
-    160 ms
+    20 ms
  ** ¿Cuánto es el valor máximo del delta y los valores medios y máximo del jitter?
-    Max delta = 353,33 ms
-    Max jitter = 49,71 ms. Mean jitter = 37,52 ms.
+    Max Delta = 352.32 ms
+    Max Jitter = 49.70ms y Mean Jitter = 37.51 ms
  ** ¿Podrías reproducir la conversación desde Wireshark? ¿Cómo? Comprueba que poniendo un valor demasiado pequeño para el buffer de jitter, la conversación puede no tener la calidad necesaria.
-    
+    Si, a partir de la captura en la opcion voz IP se puede reproducir la llamada
  ** ¿Sabrías decir qué tipo de servicio ofrece sip:9999@qxip.net?
     Nos ofrece un servicio de escucha de musica
 
